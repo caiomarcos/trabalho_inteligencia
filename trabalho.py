@@ -15,9 +15,10 @@ import matplotlib.pyplot as plt
 from scipy.fftpack import fft
 from sklearn.model_selection import train_test_split
 from sklearn.metrics import confusion_matrix, accuracy_score
+
 #%% Defining some constants to be used throughout
 # number os data points per set
-sampling_rate = 120000
+data_points = 120000
 # image width
 img_w = 14
 # image length
@@ -26,10 +27,11 @@ img_h = 14
 A = np.zeros((0, img_w, img_h))
 # image length when unidimensional
 img_length = img_w*img_h
-# length of samples used to build image
+# number of data points used to build image
 N = img_length*2
 # images in each class
-samples_per_class = (2*sampling_rate)//N
+samples_per_class = (2*data_points)//N
+
 #%% normal baseline at 48ksps
 # import matlab file using scipy
 normal_48 = scipy.io.loadmat('normal_1750.mat')
@@ -44,7 +46,7 @@ ball_12 = scipy.io.loadmat('b021')
 # get only the acc data points
 ball_12 = ball_12['X224_DE_time']
 # resample to 48ksps
-ball_12_rs = scipy.signal.resample(ball_12, sampling_rate)
+ball_12_rs = scipy.signal.resample(ball_12, data_points)
 
 #%% rolling element (ball) at 48ksps
 # import matlab file using scipy
@@ -60,7 +62,7 @@ inner_race_12 = scipy.io.loadmat('ir021')
 # get only the acc data points
 inner_race_12 = inner_race_12['X211_DE_time']
 # resample to 48ksps
-inner_race_12_rs = scipy.signal.resample(inner_race_12, sampling_rate)
+inner_race_12_rs = scipy.signal.resample(inner_race_12, data_points)
 
 #%% inner race at 48ksps
 # import matlab file using scipy
@@ -76,21 +78,22 @@ outer_race_at3_12 = scipy.io.loadmat('or021at3')
 # get only the acc data points
 outer_race_at3_12 = outer_race_at3_12['X248_DE_time']
 # resample to 48ksps
-outer_race_at3_12_rs = scipy.signal.resample(outer_race_at3_12, sampling_rate)
+outer_race_at3_12_rs = scipy.signal.resample(outer_race_at3_12, data_points)
 
 # import matlab file using scipy
 outer_race_at6_12 = scipy.io.loadmat('or021at6')
 # get only the acc data points
 outer_race_at6_12 = outer_race_at6_12['X236_DE_time']
 # resample to 48ksps
-outer_race_at6_12_rs = scipy.signal.resample(outer_race_at6_12, sampling_rate)
+outer_race_at6_12_rs = scipy.signal.resample(outer_race_at6_12, data_points)
 
 # import matlab file using scipy
 outer_race_at12_12 = scipy.io.loadmat('or021at12')
 # get only the acc data points
 outer_race_at12_12 = outer_race_at12_12['X260_DE_time']
 # resample to 48ksps
-outer_race_at12_12_rs = scipy.signal.resample(outer_race_at12_12, sampling_rate)
+outer_race_at12_12_rs = scipy.signal.resample(outer_race_at12_12, data_points)
+
 #%% outer race at different angles at 48ksps
 # import matlab file using scipy
 outer_race_at3_48 = scipy.io.loadmat('or021at3_48')
@@ -112,6 +115,7 @@ outer_race_at12_48 = scipy.io.loadmat('or021at12_48')
 outer_race_at12_48 = outer_race_at12_48['X264_DE_time']
 # undersample to 12ksps
 outer_race_at12_48_rs = outer_race_at12_48[::4]
+
 #%% build final data set for each class using both 48ksps and 12ksps (resampled accordingly)
 normal = np.append(normal_48_rs, normal_48_rs)
 inner_race = np.append(inner_race_48_rs, inner_race_12)
@@ -119,6 +123,7 @@ ball = np.append(ball_48_rs, ball_12)
 outer_race_at3 = np.append(outer_race_at3_48_rs, outer_race_at3_12)
 outer_race_at6 = np.append(outer_race_at6_48_rs, outer_race_at6_12)
 outer_race_at12 = np.append(outer_race_at12_48_rs, outer_race_at12_12)
+
 #%% some statistics
 #df_48 = pd.DataFrame(inner_race_48)
 #df_12 = pd.DataFrame(inner_race_12)
@@ -163,8 +168,8 @@ for i in range(0, samples_per_class):
     # plot each image    
     It = I
     It.shape = (It.size//img_h, img_h)
-    #plt.imshow(It, cmap="gray")
-    #plt.show()
+    plt.imshow(It, cmap="gray")
+    plt.show()
 
 # plot last image
 It = I
@@ -200,6 +205,7 @@ It = I
 It.shape = (It.size//img_h, img_h)
 plt.imshow(It, cmap="gray")
 plt.show()
+
 #%% build images for fault outer race at 6 oclock
 
 for i in range(0, samples_per_class):
@@ -228,6 +234,7 @@ It = I
 It.shape = (It.size//img_h, img_h)
 plt.imshow(It, cmap="gray")
 plt.show()
+
 #%% build images for fault outer race at 12 oclock
 
 for i in range(0, samples_per_class):
@@ -256,6 +263,7 @@ It = I
 It.shape = (It.size//img_h, img_h)
 plt.imshow(It, cmap="gray")
 plt.show()
+
 #%% build images for fault at rolling element (ball)
 
 for i in range(0, samples_per_class):
@@ -284,6 +292,7 @@ It = I
 It.shape = (It.size//img_h, img_h)
 plt.imshow(It, cmap="gray")
 plt.show()
+
 #%% build images for fault at inner race
 
 for i in range(0, samples_per_class):
@@ -312,8 +321,10 @@ It = I
 It.shape = (It.size//img_h, img_h)
 plt.imshow(It, cmap="gray")
 plt.show()
+
 #%% Reshape A 
 A = A.reshape(A.shape[0], img_w, img_h, 1)
+
 #%% Appy labels to samples
 # Label1 identifies only normal baseline and fault, two classes
 label1 = np.zeros(samples_per_class*6)
@@ -401,8 +412,10 @@ model2.add(Dense(6, activation='softmax'))
 model2.summary()
 # compile CNN and define its functions
 model2.compile(loss='categorical_crossentropy', optimizer=Adam(), metrics=['accuracy'])
+
 #%% Train CNN model2
 model2.fit(X_train, y_train, batch_size=10, nb_epoch=100, validation_data=(X_test, y_test))
+
 #%% Results
 # Make inference
 # Predict and normalize predictions into 0s and 1s
