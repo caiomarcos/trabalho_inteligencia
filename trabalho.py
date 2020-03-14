@@ -166,10 +166,10 @@ for i in range(0, samples_per_class):
     A = np.insert(A, 0, I, axis = 0)
     
     # plot each image    
-    It = I
-    It.shape = (It.size//img_h, img_h)
-    plt.imshow(It, cmap="gray")
-    plt.show()
+#    It = I
+#    It.shape = (It.size//img_h, img_h)
+#    plt.imshow(It, cmap="gray")
+#    plt.show()
 
 # plot last image
 It = I
@@ -198,8 +198,8 @@ for i in range(0, samples_per_class):
     
     It = I
     It.shape = (It.size//img_h, img_h)
-    #plt.imshow(It, cmap="gray")
-    #plt.show()
+    plt.imshow(It, cmap="gray")
+    plt.show()
     
 It = I
 It.shape = (It.size//img_h, img_h)
