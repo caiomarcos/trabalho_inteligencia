@@ -34,7 +34,7 @@ samples_per_class = (2*data_points)//N
 
 #%% normal baseline at 48ksps
 # import matlab file using scipy
-normal_48 = scipy.io.loadmat('normal_1750.mat')
+normal_48 = scipy.io.loadmat('./data/normal_1750.mat')
 # get only the acc data points
 normal_48 = normal_48['X099_DE_time']
 # undersample by 4 to get 12ksps (resampled)
@@ -42,7 +42,7 @@ normal_48_rs = normal_48[::4]
 
 #%% rolling element (ball) at 12ksps
 # import matlab file using scipy
-ball_12 = scipy.io.loadmat('b021')
+ball_12 = scipy.io.loadmat('./data/b021')
 # get only the acc data points
 ball_12 = ball_12['X224_DE_time']
 # resample to 48ksps
@@ -50,7 +50,7 @@ ball_12_rs = scipy.signal.resample(ball_12, data_points)
 
 #%% rolling element (ball) at 48ksps
 # import matlab file using scipy
-ball_48 = scipy.io.loadmat('b021_48')
+ball_48 = scipy.io.loadmat('./data/b021_48')
 # get only the acc data points
 ball_48 = ball_48['X228_DE_time']
 # undersample to 12ksps
@@ -58,7 +58,7 @@ ball_48_rs = ball_48[::4]
 
 #%% inner race at 12ksps
 # import matlab file using scipy
-inner_race_12 = scipy.io.loadmat('ir021')
+inner_race_12 = scipy.io.loadmat('./data/ir021')
 # get only the acc data points
 inner_race_12 = inner_race_12['X211_DE_time']
 # resample to 48ksps
@@ -66,7 +66,7 @@ inner_race_12_rs = scipy.signal.resample(inner_race_12, data_points)
 
 #%% inner race at 48ksps
 # import matlab file using scipy
-inner_race_48 = scipy.io.loadmat('ir021_48')
+inner_race_48 = scipy.io.loadmat('./data/ir021_48')
 # get only the acc data points
 inner_race_48 = inner_race_48['X215_DE_time']
 # undersample to 12ksps
@@ -74,21 +74,21 @@ inner_race_48_rs = inner_race_48[::4]
 
 #%% outer race at different angles at 12ksps
 # import matlab file using scipy
-outer_race_at3_12 = scipy.io.loadmat('or021at3')
+outer_race_at3_12 = scipy.io.loadmat('./data/or021at3')
 # get only the acc data points
 outer_race_at3_12 = outer_race_at3_12['X248_DE_time']
 # resample to 48ksps
 outer_race_at3_12_rs = scipy.signal.resample(outer_race_at3_12, data_points)
 
 # import matlab file using scipy
-outer_race_at6_12 = scipy.io.loadmat('or021at6')
+outer_race_at6_12 = scipy.io.loadmat('./data/or021at6')
 # get only the acc data points
 outer_race_at6_12 = outer_race_at6_12['X236_DE_time']
 # resample to 48ksps
 outer_race_at6_12_rs = scipy.signal.resample(outer_race_at6_12, data_points)
 
 # import matlab file using scipy
-outer_race_at12_12 = scipy.io.loadmat('or021at12')
+outer_race_at12_12 = scipy.io.loadmat('./data/or021at12')
 # get only the acc data points
 outer_race_at12_12 = outer_race_at12_12['X260_DE_time']
 # resample to 48ksps
@@ -96,21 +96,21 @@ outer_race_at12_12_rs = scipy.signal.resample(outer_race_at12_12, data_points)
 
 #%% outer race at different angles at 48ksps
 # import matlab file using scipy
-outer_race_at3_48 = scipy.io.loadmat('or021at3_48')
+outer_race_at3_48 = scipy.io.loadmat('./data/or021at3_48')
 # get only the acc data points
 outer_race_at3_48 = outer_race_at3_48['X252_DE_time']
 # undersample to 12ksps
 outer_race_at3_48_rs = outer_race_at3_48[::4]
 
 # import matlab file using scipy
-outer_race_at6_48 = scipy.io.loadmat('or021at6_48')
+outer_race_at6_48 = scipy.io.loadmat('./data/or021at6_48')
 # get only the acc data points
 outer_race_at6_48 = outer_race_at6_48['X240_DE_time']
 # undersample to 12ksps
 outer_race_at6_48_rs = outer_race_at6_48[::4]
 
 # import matlab file using scipy
-outer_race_at12_48 = scipy.io.loadmat('or021at12_48')
+outer_race_at12_48 = scipy.io.loadmat('./data/or021at12_48')
 # get only the acc data points
 outer_race_at12_48 = outer_race_at12_48['X264_DE_time']
 # undersample to 12ksps
